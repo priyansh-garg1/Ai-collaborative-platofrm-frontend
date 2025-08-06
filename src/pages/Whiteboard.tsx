@@ -16,6 +16,7 @@ import {
   Trash2,
   Move
 } from 'lucide-react';
+import { io, Socket } from 'socket.io-client';
 
 // --- TYPES AND CONSTANTS ---
 
@@ -87,13 +88,7 @@ interface ArrowShape extends BaseShape {
   y2: number;
 }
 
-interface TextShape extends BaseShape {
-  type: 'text';
-  x: number;
-  y: number;
-  text: string;
-}
-
+// This page is deprecated. Use /meet/:roomId and WhiteboardCanvas component instead.
 type Shape = FreehandShape | RectShape | CircleShape | ArrowShape | TextShape;
 
 interface AppState {
@@ -265,6 +260,11 @@ const drawSelectionBox = (ctx: CanvasRenderingContext2D, shape: Shape, view: Vie
     ctx.restore();
 };
 
+const getBoardId = () => {
+  const url = new URL(window.location.href);
+  return url.searchParams.get('board') || 'default-board';
+};
+
 const Whiteboard = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -284,6 +284,29 @@ const Whiteboard = () => {
     const [editingShapeIndex, setEditingShapeIndex] = useState<number | null>(null);
 
     const [view, setView] = useState<ViewState>({ x: 0, y: 0, zoom: 1 });
+    const [socket, setSocket] = useState<Socket | null>(null);
+    const [isLive, setIsLive] = useState(false);
+
+    // Setup socket.io connection
+    useEffect(() => {
+      const s = io('http://localhost:5000');
+      setSocket(s);
+      const boardId = getBoardId();
+      s.emit('join-board', boardId);
+      s.on('connect', () => setIsLive(true));
+      s.on('disconnect', () => setIsLive(false));
+      s.on('whiteboard-update', (remoteShapes: any[]) => {
+        dispatch({ type: 'SET_SHAPES_NO_HISTORY', payload: remoteShapes });
+      });
+      return () => { s.disconnect(); };
+    }, []);
+
+    // Broadcast shape changes
+    useEffect(() => {
+      if (!socket) return;
+      const boardId = getBoardId();
+      socket.emit('whiteboard-update', { boardId, data: shapes });
+    }, [shapes, socket]);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -550,6 +573,11 @@ const Whiteboard = () => {
 
     return (
         <div className="w-screen h-screen bg-gray-800 flex flex-col items-center justify-center font-sans">
+            {/* Live indicator */}
+            <div className="absolute top-2 right-4 z-20 flex items-center gap-2">
+              <span className={`w-2 h-2 rounded-full ${isLive ? 'bg-green-500' : 'bg-gray-400'} animate-pulse`} />
+              <span className="text-xs text-white">Live</span>
+            </div>
             <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-white rounded-lg shadow-lg p-2 flex items-center gap-2 z-10">
                  <button title="Select" onClick={() => setTool(TOOLS.SELECT)} className={`p-2 rounded ${tool === TOOLS.SELECT ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100'}`}><MousePointer2 size={20} /></button>
                 <button title="Pan" onClick={() => setTool(TOOLS.PAN)} className={`p-2 rounded ${tool === TOOLS.PAN ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100'}`}><Move size={20} /></button>

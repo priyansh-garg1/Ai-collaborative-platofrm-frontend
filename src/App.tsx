@@ -8,7 +8,7 @@ import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Whiteboard from "./pages/Whiteboard";
+import Meet from "./pages/Meet";
 
 const queryClient = new QueryClient();
 
@@ -21,7 +21,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/whiteboard" element={<Whiteboard />} />
+          <Route path="/meet/:roomId" element={<Meet />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<NotFound />} />
