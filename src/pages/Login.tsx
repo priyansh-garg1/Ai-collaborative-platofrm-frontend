@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { DialogContent } from '@radix-ui/react-dialog';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginForm = ({ onSuccess, onSwitchToSignup, modal }: { onSuccess?: () => void, onSwitchToSignup?: () => void, modal?: boolean }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,8 +23,8 @@ export const LoginForm = ({ onSuccess, onSwitchToSignup, modal }: { onSuccess?: 
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Login failed');
       localStorage.setItem('token', data.token);
+      navigate('/dashboard');
       if (onSuccess) onSuccess();
-      else window.location.href = '/';
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -36,9 +37,7 @@ export const LoginForm = ({ onSuccess, onSwitchToSignup, modal }: { onSuccess?: 
       {modal && (
         <>
           <DialogTitle>Sign in to FreeBoard</DialogTitle>
-          <DialogContent className='mt-2 mb-5 p-0'>
-            <DialogDescription>Access your whiteboard and collaborate with your team.</DialogDescription>
-          </DialogContent>
+          <DialogDescription>Access your whiteboard and collaborate with your team.</DialogDescription>
         </>
       )}
       <h2 className={`text-2xl font-bold mb-6 text-center${modal ? ' sr-only' : ''}`}>Login</h2>

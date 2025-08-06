@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { useNavigate } from 'react-router-dom';
 
 export const SignupForm = ({ onSuccess, onSwitchToLogin, modal }: { onSuccess?: () => void, onSwitchToLogin?: () => void, modal?: boolean }) => {
   const [name, setName] = useState('');
@@ -7,6 +8,7 @@ export const SignupForm = ({ onSuccess, onSwitchToLogin, modal }: { onSuccess?: 
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,8 +24,8 @@ export const SignupForm = ({ onSuccess, onSwitchToLogin, modal }: { onSuccess?: 
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Signup failed');
       localStorage.setItem('token', data.token);
+      navigate('/dashboard');
       if (onSuccess) onSuccess();
-      else window.location.href = '/';
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -36,7 +38,7 @@ export const SignupForm = ({ onSuccess, onSwitchToLogin, modal }: { onSuccess?: 
       {modal && (
         <>
           <DialogTitle>Create your FreeBoard account</DialogTitle>
-          <DialogDescription className='mt-2 mb-5 p-0'>Sign up to start using the whiteboard and collaborate with your team.</DialogDescription>
+          <DialogDescription>Sign up to start using the whiteboard and collaborate with your team.</DialogDescription>
         </>
       )}
       <h2 className={`text-2xl font-bold mb-6 text-center${modal ? ' sr-only' : ''}`}>Sign Up</h2>
