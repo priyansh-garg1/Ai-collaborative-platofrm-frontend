@@ -11,10 +11,10 @@ export const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-lg bg-gray-200">
+            <div className="p-2 rounded-lg bg-gradient-to-br from-primary to-creative">
               <PenTool className="h-6 w-6 text-white" />
             </div>
-            <span className="text-2xl font-bold text-foreground">
+            <span className="text-2xl font-bold bg-gradient-to-r from-primary to-creative bg-clip-text text-transparent">
               FreeBoard
             </span>
           </div>
@@ -40,7 +40,7 @@ export const Header = () => {
             <Button variant="ghost" className="text-foreground hover:text-primary">
               Sign In
             </Button>
-            <Button className="bg-gray-800 hover:bg-gray-700 text-white px-6">
+            <Button className="bg-gradient-to-r from-primary to-creative hover:opacity-90 text-white px-6">
               Get Started
             </Button>
           </div>
@@ -74,7 +74,7 @@ export const Header = () => {
                 <Button variant="ghost" className="text-foreground hover:text-primary justify-start">
                   Sign In
                 </Button>
-                <Button className="bg-gray-800 hover:bg-gray-700 text-white">
+                <Button className="bg-gradient-to-r from-primary to-creative hover:opacity-90 text-white">
                   Get Started
                 </Button>
               </div>

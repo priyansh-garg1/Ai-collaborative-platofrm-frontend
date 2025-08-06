@@ -50,12 +50,13 @@ export function HeroSection() {
                                 }}
                             >
                                 <h1
-                                    className="text-balance text-4xl font-medium sm:text-5xl md:text-6xl text-foreground">
-                                    Unleash Creativity on an Infinite Whiteboard
+                                    className="text-balance text-4xl font-medium sm:text-5xl md:text-6xl bg-gradient-to-r from-primary to-creative bg-clip-text text-transparent">
+                                    Your Ideas, Unlimited Canvas
                                 </h1>
 
                                 <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg text-muted-foreground">
-                                    Draw freely, add text, shapes, and arrows, and adjust colors with ease. Collaborate in real-time—just like Excalidraw or Miro, but made for your team. Visualize ideas, brainstorm, and build together on a limitless canvas.
+                                    The collaborative whiteboard that brings your team's creativity to life. 
+                                    Draw, ideate, and innovate together in real-time with powerful tools designed for modern teams.
                                 </p>
 
                                 <form
@@ -105,6 +106,7 @@ export function HeroSection() {
                         </div>
                     </div>
                 </section>
+                <LogoCloud />
             </main>
         </>
     )
@@ -249,6 +251,62 @@ const HeroHeader = () => {
                 </div>
             </nav>
         </header>
+    )
+}
+
+const LogoCloud = () => {
+    const logos = [
+        { name: "Microsoft", url: "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" },
+        { name: "Google", url: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
+        { name: "Apple", url: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" },
+        { name: "Amazon", url: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
+        { name: "Meta", url: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" },
+        { name: "Netflix", url: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" },
+        { name: "Adobe", url: "https://upload.wikimedia.org/wikipedia/commons/8/8d/Adobe_Corporate_Logo.svg" },
+        { name: "Spotify", url: "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" },
+    ];
+
+    return (
+        <section className="bg-background pb-16 md:pb-32">
+            <div className="group relative m-auto max-w-6xl px-6">
+                <div className="flex flex-col items-center md:flex-row">
+                    <div className="inline md:max-w-44 md:border-r md:pr-6">
+                        <p className="text-end text-sm text-muted-foreground">Trusted by leading teams</p>
+                    </div>
+                    <div className="relative py-6 md:w-[calc(100%-11rem)]">
+                        <InfiniteSlider
+                            speedOnHover={20}
+                            speed={40}
+                            gap={112}>
+                            {logos.map((logo, index) => (
+                                <div key={index} className="flex">
+                                    <img
+                                        className="mx-auto h-6 w-fit dark:invert opacity-60 hover:opacity-100 transition-opacity"
+                                        src={logo.url}
+                                        alt={`${logo.name} Logo`}
+                                        height="24"
+                                        width="auto"
+                                    />
+                                </div>
+                            ))}
+                        </InfiniteSlider>
+
+                        <div className="bg-linear-to-r from-background absolute inset-y-0 left-0 w-20"></div>
+                        <div className="bg-linear-to-l from-background absolute inset-y-0 right-0 w-20"></div>
+                        <ProgressiveBlur
+                            className="pointer-events-none absolute left-0 top-0 h-full w-20"
+                            direction="left"
+                            blurIntensity={1}
+                        />
+                        <ProgressiveBlur
+                            className="pointer-events-none absolute right-0 top-0 h-full w-20"
+                            direction="right"
+                            blurIntensity={1}
+                        />
+                    </div>
+                </div>
+            </div>
+        </section>
     )
 }
 

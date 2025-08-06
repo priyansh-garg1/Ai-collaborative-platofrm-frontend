@@ -2,16 +2,16 @@ import { PenTool, Twitter, Github, Linkedin, Mail } from "lucide-react";
 
 export const Footer = () => {
   return (
-    <footer className="bg-gray-100 border-t border-border/50">
+    <footer className="bg-secondary/30 border-t border-border/50">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <div className="p-2 rounded-lg bg-gray-200">
+              <div className="p-2 rounded-lg bg-gradient-to-br from-primary to-creative">
                 <PenTool className="h-6 w-6 text-white" />
               </div>
-              <span className="text-2xl font-bold text-foreground">
+              <span className="text-2xl font-bold bg-gradient-to-r from-primary to-creative bg-clip-text text-transparent">
                 FreeBoard
               </span>
             </div>
@@ -22,25 +22,25 @@ export const Footer = () => {
             <div className="flex gap-4">
               <a 
                 href="#" 
-                className="p-2 rounded-lg bg-gray-200 text-foreground hover:bg-gray-300 hover:text-black transition-all duration-200"
+                className="p-2 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all duration-200"
               >
                 <Twitter className="h-5 w-5" />
               </a>
               <a 
                 href="#" 
-                className="p-2 rounded-lg bg-gray-200 text-foreground hover:bg-gray-300 hover:text-black transition-all duration-200"
+                className="p-2 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all duration-200"
               >
                 <Github className="h-5 w-5" />
               </a>
               <a 
                 href="#" 
-                className="p-2 rounded-lg bg-gray-200 text-foreground hover:bg-gray-300 hover:text-black transition-all duration-200"
+                className="p-2 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all duration-200"
               >
                 <Linkedin className="h-5 w-5" />
               </a>
               <a 
                 href="#" 
-                className="p-2 rounded-lg bg-gray-200 text-foreground hover:bg-gray-300 hover:text-black transition-all duration-200"
+                className="p-2 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all duration-200"
               >
                 <Mail className="h-5 w-5" />
               </a>
