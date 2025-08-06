@@ -1,11 +1,9 @@
 'use client'
 import React from 'react'
-import { Mail, SendHorizonal, Menu, X } from 'lucide-react'
+import { Mail, SendHorizonal, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { AnimatedGroup } from '@/components/ui/animated-group'
-import { cn } from '@/lib/utils'
-import { InfiniteSlider } from '@/components/ui/infinite-slider'
-import { ProgressiveBlur } from '@/components/ui/progressive-blur'
+import { Header } from '@/components/Header'
 
 const transitionVariants = {
     item: {
@@ -30,7 +28,7 @@ const transitionVariants = {
 export function HeroSection() {
     return (
         <>
-            <HeroHeader />
+            <Header />
 
             <main className="overflow-hidden">
                 <section>
@@ -106,7 +104,6 @@ export function HeroSection() {
                         </div>
                     </div>
                 </section>
-                <LogoCloud />
             </main>
         </>
     )
@@ -153,174 +150,6 @@ const AppComponent = () => {
                     </div>
                 </div>
             </div>
-        </div>
-    )
-}
-
-const menuItems = [
-    { name: 'Features', href: '#features' },
-    { name: 'Pricing', href: '#pricing' },
-    { name: 'About', href: '#about' },
-    { name: 'Contact', href: '#contact' },
-]
-
-const HeroHeader = () => {
-    const [menuState, setMenuState] = React.useState(false)
-    const [isScrolled, setIsScrolled] = React.useState(false)
-
-    React.useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50)
-        }
-        window.addEventListener('scroll', handleScroll)
-        return () => window.removeEventListener('scroll', handleScroll)
-    }, [])
-
-    return (
-        <header>
-            <nav
-                data-state={menuState && 'active'}
-                className="fixed group z-20 w-full px-2">
-                <div className={cn('mx-auto mt-2 max-w-6xl px-6 transition-all duration-300 lg:px-12', isScrolled && 'bg-background/50 max-w-4xl rounded-2xl border backdrop-blur-lg lg:px-5')}>
-                    <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
-                        <div className="flex w-full justify-between lg:w-auto">
-                            <a
-                                href="/"
-                                aria-label="home"
-                                className="flex items-center space-x-2">
-                                <Logo />
-                            </a>
-
-                            <button
-                                onClick={() => setMenuState(!menuState)}
-                                aria-label={menuState == true ? 'Close Menu' : 'Open Menu'}
-                                className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden">
-                                <Menu className="group-data-[state=active]:rotate-180 group-data-[state=active]:scale-0 group-data-[state=active]:opacity-0 m-auto size-6 duration-200" />
-                                <X className="group-data-[state=active]:rotate-0 group-data-[state=active]:scale-100 group-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200" />
-                            </button>
-                        </div>
-
-                        <div className="absolute inset-0 m-auto hidden size-fit lg:block">
-                            <ul className="flex gap-8 text-sm">
-                                {menuItems.map((item, index) => (
-                                    <li key={index}>
-                                        <a
-                                            href={item.href}
-                                            className="text-muted-foreground hover:text-accent-foreground block duration-150">
-                                            <span>{item.name}</span>
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        <div className="bg-background group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
-                            <div className="lg:hidden">
-                                <ul className="space-y-6 text-base">
-                                    {menuItems.map((item, index) => (
-                                        <li key={index}>
-                                            <a
-                                                href={item.href}
-                                                className="text-muted-foreground hover:text-accent-foreground block duration-150">
-                                                <span>{item.name}</span>
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                            <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
-                                <Button
-                                    variant="outline"
-                                    size="sm"
-                                    className={cn(isScrolled && 'lg:hidden')}>
-                                    <span>Login</span>
-                                </Button>
-                                <Button
-                                    size="sm"
-                                    className={cn('bg-gradient-to-r from-primary to-creative hover:opacity-90', isScrolled && 'lg:hidden')}>
-                                    <span>Sign Up</span>
-                                </Button>
-                                <Button
-                                    size="sm"
-                                    className={cn('bg-gradient-to-r from-primary to-creative hover:opacity-90', isScrolled ? 'lg:inline-flex' : 'hidden')}>
-                                    <span>Get Started</span>
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </header>
-    )
-}
-
-const LogoCloud = () => {
-    const logos = [
-        { name: "Microsoft", url: "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" },
-        { name: "Google", url: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
-        { name: "Apple", url: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" },
-        { name: "Amazon", url: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
-        { name: "Meta", url: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" },
-        { name: "Netflix", url: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" },
-        { name: "Adobe", url: "https://upload.wikimedia.org/wikipedia/commons/8/8d/Adobe_Corporate_Logo.svg" },
-        { name: "Spotify", url: "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" },
-    ];
-
-    return (
-        <section className="bg-background pb-16 md:pb-32">
-            <div className="group relative m-auto max-w-6xl px-6">
-                <div className="flex flex-col items-center md:flex-row">
-                    <div className="inline md:max-w-44 md:border-r md:pr-6">
-                        <p className="text-end text-sm text-muted-foreground">Trusted by leading teams</p>
-                    </div>
-                    <div className="relative py-6 md:w-[calc(100%-11rem)]">
-                        <InfiniteSlider
-                            speedOnHover={20}
-                            speed={40}
-                            gap={112}>
-                            {logos.map((logo, index) => (
-                                <div key={index} className="flex">
-                                    <img
-                                        className="mx-auto h-6 w-fit dark:invert opacity-60 hover:opacity-100 transition-opacity"
-                                        src={logo.url}
-                                        alt={`${logo.name} Logo`}
-                                        height="24"
-                                        width="auto"
-                                    />
-                                </div>
-                            ))}
-                        </InfiniteSlider>
-
-                        <div className="bg-linear-to-r from-background absolute inset-y-0 left-0 w-20"></div>
-                        <div className="bg-linear-to-l from-background absolute inset-y-0 right-0 w-20"></div>
-                        <ProgressiveBlur
-                            className="pointer-events-none absolute left-0 top-0 h-full w-20"
-                            direction="left"
-                            blurIntensity={1}
-                        />
-                        <ProgressiveBlur
-                            className="pointer-events-none absolute right-0 top-0 h-full w-20"
-                            direction="right"
-                            blurIntensity={1}
-                        />
-                    </div>
-                </div>
-            </div>
-        </section>
-    )
-}
-
-const Logo = ({ className }: { className?: string }) => {
-    return (
-        <div className="flex items-center gap-2">
-            <div className="p-2 rounded-lg bg-gradient-to-br from-primary to-creative">
-                <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                </svg>
-            </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-primary to-creative bg-clip-text text-transparent">
-                FreeBoard
-            </span>
         </div>
     )
 }

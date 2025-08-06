@@ -61,10 +61,10 @@ const features = [
 
 export const Features = () => {
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-secondary/30">
+    <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-creative bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
             Everything You Need to Create
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
@@ -77,10 +77,10 @@ export const Features = () => {
           {features.map((feature, index) => (
             <Card 
               key={index} 
-              className="p-8 hover:shadow-xl transition-all duration-300 hover:scale-105 border-0 bg-white/50 backdrop-blur-sm"
+              className="p-8 border-0 bg-white/80 hover:shadow-lg transition-all duration-300 rounded-xl"
             >
               <div className="flex items-center mb-4">
-                <div className="p-3 rounded-lg bg-gradient-to-br from-primary to-creative text-white mr-4">
+                <div className="p-3 rounded-lg bg-muted text-primary mr-4">
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-semibold text-foreground">
